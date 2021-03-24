@@ -11,8 +11,15 @@ const Home = () => {
       <Header />
 
       <MainRow>
-        <Sidebar />
+        <Sidebar title='Tools' direction='left'>
+          <button>Do something</button>
+        </Sidebar>
+
         <Page />
+
+        <Sidebar title='Props' direction='right'>
+          <button>Do something else</button>
+        </Sidebar>
       </MainRow>
 
       <Footer />

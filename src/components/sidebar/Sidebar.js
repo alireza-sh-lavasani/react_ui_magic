@@ -1,14 +1,15 @@
 import React from 'react'
-import { Laser, Main, Title } from './sidebar_styles'
+import { Laser, Main, Separator, Title } from './sidebar_styles'
 
-
-const Sidebar = () => {
-  
+const Sidebar = ({ direction, children, title }) => {
   return (
     <>
-      <Main>
-        <Title>Sidebar</Title>
-        <Laser />
+      <Main direction={direction}>
+        <Title>{title}</Title>
+        <Separator />
+        <Laser direction={direction} />
+
+        {children}
       </Main>
     </>
   )
