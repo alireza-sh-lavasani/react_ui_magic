@@ -1,12 +1,16 @@
 import React from 'react'
-import { Main } from './page_styles'
+import { InitialIcon, InitialText, Main } from './page_styles'
 
 
 const Page = () => {
   
   return (
     <>
-      <Main></Main>
+      <Main>
+        <InitialIcon>
+          <InitialText>Click Here To Initialize The Page</InitialText>
+        </InitialIcon>
+      </Main>
     </>
   )
 }
