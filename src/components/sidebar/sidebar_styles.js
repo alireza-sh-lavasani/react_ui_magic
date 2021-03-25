@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Main = styled.section`
-  min-height: calc(100vh - (7em + 4em));
+  min-height: calc(100vh - (5em + 4em));
   min-width: 17em;
   background-color: #222e36;
   ${({direction}) => direction === 'left' ? `border-right: 1px solid #545f68` : `border-left: 1px solid #545f68`};

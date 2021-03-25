@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <>
       <Main>
-        <Title>Code Magic</Title>
+        <Title>React UI Magic</Title>
         <Laser />
       </Main>
     </>

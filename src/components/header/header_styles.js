@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Main = styled.div`
-  height: 7em;
+  height: 5em;
   background-color: #141a1f;
   border-bottom: 1px solid #545f68;
   padding: 1em 2em;
@@ -23,7 +23,7 @@ export const Laser = styled.div`
 export const Title = styled.span`
   margin: 0;
   color: #d9b200;
-  font-size: 2em;
+  font-size: 1.85em;
   letter-spacing: 5px;
   text-transform: uppercase;
 `
