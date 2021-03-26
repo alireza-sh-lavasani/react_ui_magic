@@ -18,45 +18,41 @@ const Page = () => {
    * State
    */
   const [Initialized, setInitialized] = useState(0)
-  // const [Elements, setElements] = useState([])
 
   /**
-   * Watch initialized state
+   * Initial component
    */
-  useEffect(() => {
-    // Only run once
-    if (Initialized === 1) {
-      const { component, code, style } = codeGen({
-        name: 'Main',
-        type: 'div',
-        id: 'main-wrapper',
-        props: [
-          {
-            key: 'isHome',
-            value: 'true',
-            type: 'exp',
-          },
-          {
-            key: 'testProp',
-            value: 'test',
-            type: 'str',
-          },
-        ],
-        styles: 'margin: 0;\n\t padding: 1em;\n\t background-color: green;',
-      })
-
-      console.log(code, style)
-      dispatch({
-        type: ADD_COMPONENT,
-        payload: {
-          component,
-          code,
-          style,
+  const initialize = () => {
+    const { component, code, style } = codeGen({
+      name: 'Main',
+      type: 'div',
+      id: 'main-wrapper',
+      props: [
+        {
+          key: 'isHome',
+          value: 'true',
+          type: 'exp',
         },
-      })
-      // setElements([...Elements, element])
-    }
-  }, [Initialized])
+        {
+          key: 'testProp',
+          value: 'test',
+          type: 'str',
+        },
+      ],
+      styles: 'margin: 0;\n\t padding: 1em;\n\t background-color: green;',
+    })
+
+    dispatch({
+      type: ADD_COMPONENT,
+      payload: {
+        component,
+        code,
+        style,
+      },
+    })
+
+    setInitialized(true)
+  }
 
   /**
    * Render Elements
@@ -73,10 +69,11 @@ const Page = () => {
         {Initialized ? (
           <>
             <p style={{ color: 'lightgray' }}>Let the game begin ...</p>
+
             <RenderComponents />
           </>
         ) : (
-          <InitialIcon onClick={() => setInitialized(state => state + 1)}>
+          <InitialIcon onClick={initialize}>
             <InitialText>Click Here To Initialize The Page</InitialText>
           </InitialIcon>
         )}
