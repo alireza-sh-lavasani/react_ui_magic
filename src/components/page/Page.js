@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import codeGen from '../../modules/codeGen'
+import { ADD_COMPONENT } from '../../redux/types/components_types'
 import { InitialIcon, InitialText, Main } from './page_styles'
 
 /**
@@ -7,10 +9,16 @@ import { InitialIcon, InitialText, Main } from './page_styles'
  */
 const Page = () => {
   /**
+   * Redux
+   */
+  const dispatch = useDispatch()
+  const Components = useSelector(state => state.components)
+
+  /**
    * State
    */
   const [Initialized, setInitialized] = useState(0)
-  const [Elements, setElements] = useState([])
+  // const [Elements, setElements] = useState([])
 
   /**
    * Watch initialized state
@@ -18,7 +26,7 @@ const Page = () => {
   useEffect(() => {
     // Only run once
     if (Initialized === 1) {
-      const { element, code, style } = codeGen({
+      const { component, code, style } = codeGen({
         name: 'Main',
         type: 'div',
         id: 'main-wrapper',
@@ -38,15 +46,23 @@ const Page = () => {
       })
 
       console.log(code, style)
-      setElements([...Elements, element])
+      dispatch({
+        type: ADD_COMPONENT,
+        payload: {
+          component,
+          code,
+          style,
+        },
+      })
+      // setElements([...Elements, element])
     }
   }, [Initialized])
 
   /**
    * Render Elements
    */
-  const RenderElements = () =>
-    Elements.map((Element, id) => <Element key={id} />)
+  const RenderComponents = () =>
+    Components.map(({ component: CustomComp }, id) => <CustomComp key={id} />)
 
   /**
    * Render
@@ -57,7 +73,7 @@ const Page = () => {
         {Initialized ? (
           <>
             <p style={{ color: 'lightgray' }}>Let the game begin ...</p>
-            <RenderElements />
+            <RenderComponents />
           </>
         ) : (
           <InitialIcon onClick={() => setInitialized(state => state + 1)}>

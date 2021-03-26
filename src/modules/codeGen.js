@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 const codeGen = ({ name, type, styles, id, props }) => {
   // Generate element
-  const element = styled[type]`
+  const component = styled[type]`
     ${styles}
   `
 
@@ -27,7 +27,7 @@ const codeGen = ({ name, type, styles, id, props }) => {
     ${'`'}
   `
 
-  return { element, code, style }
+  return { component, code, style }
 }
 
 export default codeGen
