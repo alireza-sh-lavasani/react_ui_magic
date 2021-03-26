@@ -1,12 +1,20 @@
 import { ArrowBackIos, ArrowForwardIos } from '@material-ui/icons'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Body, Head, Laser, Main, Separator, Title } from './sidebar_styles'
 
-const Sidebar = ({ direction, children, title }) => {
+/**
+ * Sidebar component
+ */
+const Sidebar = ({ direction, children, title, open }) => {
   /**
    * State
    */
   const [IsOpen, setIsOpen] = useState(false)
+
+  useEffect(() => {
+    // Prevent unwanted redraws
+    if (open !== IsOpen) setIsOpen(open)
+  }, [open])
 
   /**
    * Render
@@ -53,7 +61,7 @@ const Sidebar = ({ direction, children, title }) => {
         <Separator />
         <Laser direction={direction} />
 
-        <Body idOpen={IsOpen}>{children}</Body>
+        <Body isOpen={IsOpen}>{children}</Body>
       </Main>
     </>
   )
