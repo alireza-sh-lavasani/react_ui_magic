@@ -16,7 +16,8 @@ const Page = () => {
    * Watch initialized state
    */
   useEffect(() => {
-    if (Initialized == 1) {
+    // Only run once
+    if (Initialized === 1) {
       const { element, code, style } = codeGen({
         name: 'Main',
         type: 'div',
@@ -25,15 +26,15 @@ const Page = () => {
           {
             key: 'isHome',
             value: 'true',
-            type: 'exp'
+            type: 'exp',
           },
           {
             key: 'testProp',
             value: 'test',
-            type: 'str'
+            type: 'str',
           },
         ],
-        styles: 'margin: 0;\n\t padding: 1em;\n\t background-color: green;'
+        styles: 'margin: 0;\n\t padding: 1em;\n\t background-color: green;',
       })
 
       console.log(code, style)

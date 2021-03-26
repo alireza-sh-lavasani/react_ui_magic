@@ -2,15 +2,14 @@ import styled from 'styled-components'
 
 export const Main = styled.section`
   min-height: calc(100vh - (5em + 4em));
-  min-width: 17em;
+  min-width: ${({ isOpen }) => (isOpen ? '17em' : 0)};
+  width: fit-content;
   background-color: #222e36;
-  ${({direction}) => direction === 'left' ? `border-right: 1px solid #545f68` : `border-left: 1px solid #545f68`};
-  padding: 3em 2em;
+  ${({ direction }) =>
+    direction === 'left'
+      ? `border-right: 1px solid #545f68`
+      : `border-left: 1px solid #545f68`};
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
 `
 
 export const Laser = styled.div`
@@ -22,15 +21,33 @@ export const Laser = styled.div`
   right: 0;
 `
 
+export const Head = styled.div`
+  height: 3em;
+  padding: 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+`
+
 export const Title = styled.span`
   color: #a1a1a1;
-  font-size: 1.5em;
-  letter-spacing: 2px;
+  font-size: 1em;
+  letter-spacing: 4px;
+  text-transform: uppercase;
 `
 
 export const Separator = styled.div`
   height: 1px;
   width: 100%;
   background-color: #545f68;
-  margin: 0.5em 0 2em 0;
+`
+
+export const Body = styled.div`
+  padding: 1em;
+  display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
 `

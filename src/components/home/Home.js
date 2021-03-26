@@ -17,7 +17,7 @@ const Home = () => {
 
         <Page />
 
-        <Sidebar title='Props' direction='right'>
+        <Sidebar title='Controls' direction='right'>
           <button>Do something else</button>
         </Sidebar>
       </MainRow>
