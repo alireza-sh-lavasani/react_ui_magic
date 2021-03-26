@@ -17,15 +17,26 @@ const Page = () => {
    */
   useEffect(() => {
     if (Initialized == 1) {
-      const { element, code } = codeGen({
+      const { element, code, style } = codeGen({
         name: 'Main',
         type: 'div',
         id: 'main-wrapper',
-        props: ['isHome={true}'],
-        styles: `margin: 0; padding: 1em; background-color: green`,
+        props: [
+          {
+            key: 'isHome',
+            value: 'true',
+            type: 'exp'
+          },
+          {
+            key: 'testProp',
+            value: 'test',
+            type: 'str'
+          },
+        ],
+        styles: 'margin: 0;\n\t padding: 1em;\n\t background-color: green;'
       })
 
-      console.log(code)
+      console.log(code, style)
       setElements([...Elements, element])
     }
   }, [Initialized])

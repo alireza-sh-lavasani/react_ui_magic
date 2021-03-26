@@ -6,15 +6,28 @@ const codeGen = ({ name, type, styles, id, props }) => {
     ${styles}
   `
 
+  // Parse props
+  const parsedProps = props.map(
+    ({ key, value, type }) =>
+      `${key}=${type === 'exp' ? `{${value}}` : `[${value}]`}`
+  )
+
   // Generate Code
   const code = `
     <${name}
       ${id ? `id='${id}'` : ''}
-      ${props ? props.map(prop => `${prop }`) : ''}
+      ${parsedProps.join('\n\t\t')}
     />
   `
 
-  return { element, code }
+  // Generate styles
+  const style = `
+    const ${name} = styled.${type + '`'}
+      ${styles}
+    ${'`'}
+  `
+
+  return { element, code, style }
 }
 
 export default codeGen
