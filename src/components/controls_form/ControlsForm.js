@@ -1,7 +1,23 @@
+import { TextField } from '@material-ui/core'
 import { withFormik } from 'formik'
+import { Form, Field } from 'formik'
+import { GenInput } from '../customInputs/CustomInputs'
 
-const Form = () => {
-  return <></>
+const FormView = ({ values, handleChange }) => {
+  console.log(values)
+
+  return (
+    <>
+      <Form>
+        <GenInput
+          onChange={handleChange}
+          name='name'
+          label='Name'
+          value={values.name}
+        />
+      </Form>
+    </>
+  )
 }
 
 const ControlsForm = withFormik({
@@ -9,6 +25,6 @@ const ControlsForm = withFormik({
   handleSubmit: (values, { props }) => {
     console.log(values)
   },
-})(Form)
+})(FormView)
 
 export default ControlsForm

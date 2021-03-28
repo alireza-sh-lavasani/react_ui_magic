@@ -1,4 +1,5 @@
 import React from 'react'
+import ControlsForm from '../controls_form/ControlsForm'
 import Footer from '../footer/Footer'
 import Header from '../header/Header'
 import Page from '../page/Page'
@@ -18,7 +19,7 @@ const Home = () => {
         <Page />
 
         <Sidebar title='Controls' direction='right'>
-          <button>Do something else</button>
+          <ControlsForm />
         </Sidebar>
       </MainRow>
 

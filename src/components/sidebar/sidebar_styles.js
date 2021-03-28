@@ -45,7 +45,7 @@ export const Separator = styled.div`
 `
 
 export const Body = styled.div`
-  padding: 1em;
+  padding: 2em 1em;
   display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
   flex-direction: column;
   align-items: flex-start;
