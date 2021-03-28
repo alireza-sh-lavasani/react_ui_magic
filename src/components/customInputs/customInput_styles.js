@@ -14,6 +14,7 @@ export const Input = styled.input`
   background: transparent;
   transition: all ease-in 0.15s;
   width: 100%;
+  padding-bottom: 0.25em;
 
   &:focus-visible {
     outline: none;
@@ -31,12 +32,12 @@ export const Label = styled.label`
   ${({ value }) =>
     value &&
     `
-    bottom: 2em;
+    bottom: 2.5em;
     font-size: 0.85em;
   `}
 
   ${Base}:focus-within & {
-    bottom: 2em;
+    bottom: 2.5em;
     font-size: 0.85em;
   }
 `

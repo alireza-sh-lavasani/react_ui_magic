@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Main = styled.section`
   min-height: calc(100vh - (5em + 4em));
-  min-width: ${({ isOpen }) => (isOpen ? '17em' : 0)};
+  min-width: ${({ isOpen }) => (isOpen ? '30vw' : 0)};
   width: fit-content;
   background-color: #222e36;
   ${({ direction }) =>
@@ -53,4 +53,21 @@ export const Body = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
   height: 100%;
+`
+export const TabsWrapper = styled.div`
+  display: ${({ isOpen }) => (isOpen ? 'grid' : 'none')};
+  grid-template-columns: repeat(${({ tabCount }) => tabCount}, 1fr);
+`
+
+export const TabHead = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: ${({isSelected}) => isSelected ? '#222e36' : '#a1a1a1'};
+  padding: 1em 0.5em;
+  border-left: 1px solid #a1a1a1;
+  border-right: 1px solid #a1a1a1;
+  cursor: pointer;
+  background-color: ${({ isSelected }) => (isSelected ? '#a1a1a1' : '#222e36')};
+  transition: all ease-in 0.1s;
 `

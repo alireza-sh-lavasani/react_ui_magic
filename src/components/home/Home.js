@@ -18,9 +18,17 @@ const Home = () => {
 
         <Page />
 
-        <Sidebar title='Controls' direction='right'>
-          <ControlsForm />
-        </Sidebar>
+        <Sidebar
+          title='Controls'
+          direction='right'
+          tabs={[
+            { title: 'Inputs', component: <ControlsForm /> },
+            {
+              title: 'Outputs',
+              component: () => <></>,
+            },
+          ]}
+        />
       </MainRow>
 
       <Footer />

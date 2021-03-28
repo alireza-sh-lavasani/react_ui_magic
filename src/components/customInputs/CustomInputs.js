@@ -18,7 +18,7 @@ export const GenInput = ({
         </Label>
 
         <Input
-          autoComplete='none'
+          autoComplete='off'
           id={id}
           name={name}
           value={value}

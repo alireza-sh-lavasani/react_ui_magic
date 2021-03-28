@@ -1,15 +1,26 @@
 import { ArrowBackIos, ArrowForwardIos } from '@material-ui/icons'
 import React, { useEffect, useState } from 'react'
-import { Body, Head, Laser, Main, Separator, Title } from './sidebar_styles'
+import { unstable_renderSubtreeIntoContainer } from 'react-dom'
+import {
+  Body,
+  Head,
+  Laser,
+  Main,
+  Separator,
+  TabHead,
+  TabsWrapper,
+  Title,
+} from './sidebar_styles'
 
 /**
  * Sidebar component
  */
-const Sidebar = ({ direction, children, title, open }) => {
+const Sidebar = ({ direction, children, title, open, tabs }) => {
   /**
    * State
    */
   const [IsOpen, setIsOpen] = useState(false)
+  const [SelectedTab, setSelectedTab] = useState(0)
 
   useEffect(() => {
     // Prevent unwanted redraws
@@ -59,7 +70,24 @@ const Sidebar = ({ direction, children, title, open }) => {
         </Head>
 
         <Separator />
+
+        {tabs && (
+          <TabsWrapper tabCount={2} isOpen={IsOpen}>
+            {' '}
+            {tabs.map(({ title }, index) => (
+              <TabHead
+                onClick={() => setSelectedTab(index)}
+                isSelected={index == SelectedTab}
+              >
+                <span>{title}</span>
+              </TabHead>
+            ))}
+          </TabsWrapper>
+        )}
+        <Separator />
         <Laser direction={direction} />
+
+        {tabs && <Body isOpen={IsOpen}>{tabs[SelectedTab].component}</Body>}
 
         <Body isOpen={IsOpen}>{children}</Body>
       </Main>

@@ -8,11 +8,11 @@ const FormView = ({ values, handleChange }) => {
 
   return (
     <>
-      <Form>
+      <Form autoComplete='off' style={{ width: '100%' }}>
         <GenInput
           onChange={handleChange}
           name='name'
-          label='Name'
+          label='Component Name'
           value={values.name}
         />
       </Form>
