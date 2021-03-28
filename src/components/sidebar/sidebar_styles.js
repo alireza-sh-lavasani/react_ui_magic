@@ -9,7 +9,9 @@ export const Main = styled.section`
     direction === 'left'
       ? `border-right: 1px solid #545f68`
       : `border-left: 1px solid #545f68`};
-  position: relative;
+  position: absolute;
+  top: 0;
+  ${({ direction }) => (direction === 'left' ? 'left: 0;' : 'right: 0')};
 `
 
 export const Laser = styled.div`
@@ -50,4 +52,5 @@ export const Body = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
+  height: 100%;
 `

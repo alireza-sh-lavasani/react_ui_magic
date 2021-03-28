@@ -13,6 +13,7 @@ export const Input = styled.input`
   font-size: ${({ fontSize }) => fontSize || '1em'};
   background: transparent;
   transition: all ease-in 0.15s;
+  width: 100%;
 
   &:focus-visible {
     outline: none;
