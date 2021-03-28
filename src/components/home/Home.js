@@ -2,7 +2,7 @@ import React from 'react'
 import ControlsForm from '../controls_form/ControlsForm'
 import Footer from '../footer/Footer'
 import Header from '../header/Header'
-import Page from '../page/Page'
+import Editor from '../editor/Editor'
 import Sidebar from '../sidebar/Sidebar'
 import { MainRow } from './home_styles'
 
@@ -16,7 +16,7 @@ const Home = () => {
           <button>Do something</button>
         </Sidebar>
 
-        <Page />
+        <Editor />
 
         <Sidebar
           title='Controls'

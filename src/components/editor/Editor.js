@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import codeGen from '../../modules/codeGen'
 import { ADD_COMPONENT } from '../../redux/types/components_types'
-import { InitialIcon, InitialText, Main } from './page_styles'
+import { InitialIcon, InitialText, Main } from './editor_styles'
 
 /**
- * Page component
+ * Editor component
  */
-const Page = () => {
+const Editor = () => {
   /**
    * Redux
    */
@@ -23,7 +23,7 @@ const Page = () => {
    * Initial component
    */
   const initialize = () => {
-    const { component, code, style } = codeGen({
+    const generatedComp = codeGen({
       name: 'Main',
       type: 'div',
       id: 'main-wrapper',
@@ -39,16 +39,13 @@ const Page = () => {
           type: 'str',
         },
       ],
-      styles: 'margin: 0;\n\t padding: 1em;\n\t background-color: green;',
+      styles:
+        'margin: 0;\npadding: 1em;\nheight: 10em;\nborder: 1px solid #a1a1a1;',
     })
 
     dispatch({
       type: ADD_COMPONENT,
-      payload: {
-        component,
-        code,
-        style,
-      },
+      payload: generatedComp,
     })
 
     setInitialized(true)
@@ -68,8 +65,6 @@ const Page = () => {
       <Main>
         {Initialized ? (
           <>
-            <p style={{ color: 'lightgray' }}>Let the game begin ...</p>
-
             <RenderComponents />
           </>
         ) : (
@@ -82,4 +77,4 @@ const Page = () => {
   )
 }
 
-export default Page
+export default Editor

@@ -1,6 +1,6 @@
-import { Base, Input, Label } from './customInput_styles'
+import { Base, Textarea, Label } from './customTextarea_styles'
 
-export const MyInput = ({
+export const MyTextarea = ({
   label,
   name,
   id,
@@ -16,13 +16,13 @@ export const MyInput = ({
           {label}
         </Label>
 
-        <Input
+        <Textarea
           autoComplete='off'
           id={id}
           name={name}
           value={value}
           onChange={onChange}
-          color={value ? '#ddd' : color}
+          color={color}
           fontSize={fontSize}
         />
       </Base>

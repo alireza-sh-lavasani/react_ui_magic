@@ -3,6 +3,8 @@ import styled from 'styled-components'
 export const Main = styled.section`
   min-height: calc(100vh - (5em + 4em));
   min-width: ${({ isOpen }) => (isOpen ? '30vw' : 0)};
+  max-width: 75vw;
+  overflow-x: hidden;
   width: fit-content;
   background-color: #222e36;
   ${({ direction }) =>
