@@ -24,11 +24,31 @@ export const InitialIcon = styled.div`
   transition: all ease-in 0.15s;
   cursor: pointer;
 
+  @keyframes blink {
+    0% {
+      opacity: 1;
+    }
+    25% {
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 0.1;
+    }
+    75% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
   &:hover {
     border-color: #3781d6;
+    animation: blink 3s linear infinite;
   }
 
   :hover ${InitialText} {
     color: #3781d6;
+    animation: blink 3s linear infinite;
   }
 `

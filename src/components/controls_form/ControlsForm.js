@@ -4,8 +4,6 @@ import { Form, Field } from 'formik'
 import { GenInput } from '../customInputs/CustomInputs'
 
 const FormView = ({ values, handleChange }) => {
-  console.log(values)
-
   return (
     <>
       <Form autoComplete='off' style={{ width: '100%' }}>

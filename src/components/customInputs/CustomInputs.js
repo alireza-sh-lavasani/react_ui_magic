@@ -11,7 +11,6 @@ export const GenInput = ({
 }) => {
   return (
     <>
-      {console.log(value)}
       <Base>
         <Label color={color} fontSize={fontSize} value={value}>
           {label}
