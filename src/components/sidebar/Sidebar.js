@@ -76,6 +76,7 @@ const Sidebar = ({ direction, children, title, open, tabs }) => {
             {' '}
             {tabs.map(({ title }, index) => (
               <TabHead
+                key={index}
                 onClick={() => setSelectedTab(index)}
                 isSelected={index == SelectedTab}
               >

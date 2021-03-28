@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Base = styled.div`
   width: ${({ width }) => width || '100%'};
-  height: 30em;
+  height: 40vh;
   position: relative;
   margin: 4em 0 0 0;
 `

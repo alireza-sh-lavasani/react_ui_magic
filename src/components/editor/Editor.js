@@ -24,7 +24,7 @@ const Editor = () => {
    */
   const initialize = () => {
     const generatedComp = codeGen({
-      name: 'Main',
+      name: 'First Component',
       type: 'div',
       id: 'main-wrapper',
       props: [
