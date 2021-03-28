@@ -32,7 +32,7 @@ export const InitialIcon = styled.div`
       opacity: 0.5;
     }
     50% {
-      opacity: 0.1;
+      opacity: 0.25;
     }
     75% {
       opacity: 0.5;
