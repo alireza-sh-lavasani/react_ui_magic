@@ -1,11 +1,25 @@
 import { withFormik } from 'formik'
 import { Form } from 'formik'
 import { useEffect, useState } from 'react'
-import { connect, useSelector } from 'react-redux'
+import { connect, useDispatch } from 'react-redux'
+import { UPDATE_COMPONENT_STYLES } from '../../redux/types/components_types'
 import { MyInput } from '../customInputs/CustomInputs'
 import { MyTextarea } from '../customTextarea/CustomTextarea'
 
 const FormView = ({ values, handleChange }) => {
+  /**
+   * Redux
+   */
+  const dispatch = useDispatch()
+
+  /**
+   * Update redux with changes
+   */
+  const updateRedux = e => {
+    dispatch({ type: UPDATE_COMPONENT_STYLES, payload: e.target.value })
+    handleChange(e)
+  }
+
   /**
    * Render
    */
@@ -13,14 +27,14 @@ const FormView = ({ values, handleChange }) => {
     <>
       <Form autoComplete='off' style={{ width: '100%' }}>
         <MyInput
-          onChange={handleChange}
+          onChange={updateRedux}
           name='name'
           label='Component Name'
           value={values.name}
         />
 
         <MyTextarea
-          onChange={handleChange}
+          onChange={updateRedux}
           name='styles'
           label='Styles'
           value={values.styles}
