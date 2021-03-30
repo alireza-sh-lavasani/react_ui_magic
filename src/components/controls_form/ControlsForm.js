@@ -49,9 +49,9 @@ const FormView = ({ values, handleChange }) => {
 
 const ControlsForm = withFormik({
   enableReinitialize: true,
-  mapPropsToValues: ({ comps }) => {
-    if (comps[0]) {
-      const { name, styles } = comps[0]
+  mapPropsToValues: ({ selectedComp }) => {
+    if (selectedComp) {
+      const { name, styles } = selectedComp
 
       return {
         name,
@@ -71,7 +71,10 @@ const ControlsForm = withFormik({
 
 export default connect(
   // mapStateToProps
-  ({ components }) => ({ comps: components }),
+  ({ components, selectedCompID }) => {
+    const selectedComp = components.find(({ id }) => id == selectedCompID)
+    return { selectedComp }
+  },
   // mapDispatchToProps
   {}
 )(ControlsForm)

@@ -8,6 +8,7 @@ import {
   UPDATE_COMPONENT,
 } from '../../redux/types/components_types'
 import { InitialIcon, InitialText, Main } from './editor_styles'
+import shortid from 'shortid'
 
 /**
  * Editor component
@@ -33,6 +34,7 @@ const Editor = () => {
    */
   const initialize = () => {
     const generatedComp = codeGen({
+      id: shortid.generate(),
       name: 'First Component',
       type: 'div',
       id: 'main-wrapper',

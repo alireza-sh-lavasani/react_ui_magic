@@ -1,10 +1,6 @@
 import styled from 'styled-components'
-import shortid from 'shortid'
 
-const codeGen = ({ name, type, styles, props }) => {
-  // Unique id
-  const id = shortid.generate()
-
+const codeGen = ({ id, name, type, styles, props }) => {
   // Generate element
   const component = styled[type]`
     ${styles}
@@ -50,7 +46,7 @@ const codeGen = ({ name, type, styles, props }) => {
   // Generate Code
   const react_code = `
     <${name}
-      ${id ? `id='${id}'` : ''}
+      ${`id='${id}'`}
       ${parsedProps.join('\n\t\t')}
     />
   `
