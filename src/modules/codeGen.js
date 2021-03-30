@@ -13,6 +13,20 @@ const codeGen = ({ name, type, styles, props }) => {
     position: relative;
     cursor: cell;
 
+    ${({ isSelected }) =>
+      isSelected &&
+      `
+    &::after {
+      content: '';
+      top: 0;
+      left: 0;
+      background-color: #d9b200;
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      opacity: 0.25;
+    }`}
+
     &:hover {
       &::after {
         content: '';
@@ -52,6 +66,7 @@ const codeGen = ({ name, type, styles, props }) => {
   return {
     id,
     name,
+    type,
     component,
     styles,
     props,
