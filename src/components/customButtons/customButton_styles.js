@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 
-export const Base = styled.div`
+export const Base = styled.button`
   display: flex;
-  justify-content:center;
-  align-items:center;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 3em;
   color: #a1a1a1;
@@ -18,6 +18,10 @@ export const Base = styled.div`
     background-color: #a1a1a1;
     color: #222e36;
     font-weight: bold;
+  }
+
+  &:focus {
+    outline: none;
   }
 `
 

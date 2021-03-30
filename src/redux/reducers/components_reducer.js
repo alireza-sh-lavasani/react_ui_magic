@@ -1,17 +1,28 @@
-import { ADD_COMPONENT, UPDATE_COMPONENT, UPDATE_COMPONENT_STYLES } from '../types/components_types'
+import {
+  ADD_COMPONENT,
+  UPDATE_COMPONENT,
+  UPDATE_COMPONENT_DATA,
+} from '../types/components_types'
 
 const components = (state = [], { type, payload }) => {
   switch (type) {
+    /*****************************************************
+     * Add new component
+     *****************************************************/
     case ADD_COMPONENT:
       return [...state, payload]
 
+    /*****************************************************
+     * Update selected component ro re-render react
+     *****************************************************/
     case UPDATE_COMPONENT:
-      return [payload]
+      return updateComponent(state, payload)
 
-    case UPDATE_COMPONENT_STYLES:
-      const element = state[0]
-      element.styles = payload
-      return [element]
+    /*****************************************************
+     * Update selected component data with user input
+     *****************************************************/
+    case UPDATE_COMPONENT_DATA:
+      return updateComponentData(state, payload)
 
     default:
       return state
@@ -19,3 +30,56 @@ const components = (state = [], { type, payload }) => {
 }
 
 export default components
+
+/**
+ * Update Component
+ */
+const updateComponent = (state, payload) => {
+  const { id: selectedCompID, updatedComp } = payload
+
+  let compIndex
+
+  // find selected component and its index
+  state.map(({ id }, index) => {
+    if (id == selectedCompID) {
+      compIndex = index
+      return null
+    }
+  })
+
+  // update redux with selected component data
+  let components = [...state]
+  components[compIndex] = updatedComp
+  return components
+}
+
+/**
+ * Update component Data
+ */
+const updateComponentData = (state, payload) => {
+  const { id: selectedCompID, name, styles } = payload
+
+  let comp
+  let compIndex
+
+  // find selected component and its index
+  state.map(({ id }, index) => {
+    if (id == selectedCompID) {
+      comp = state[index]
+      compIndex = index
+      return null
+    }
+  })
+
+  // update selected component data
+  comp = {
+    ...state[compIndex],
+    name,
+    styles,
+  }
+
+  // update redux with selected component data
+  let components = [...state]
+  components[compIndex] = comp
+  return components
+}

@@ -4,6 +4,15 @@ export const Main = styled.section`
   background-color: #2c3942;
   padding: 3em;
   width: 100%;
+  position: relative;
+`
+
+export const Backdrop = styled.div`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 `
 
 export const InitialText = styled.span`

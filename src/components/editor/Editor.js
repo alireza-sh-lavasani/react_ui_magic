@@ -7,7 +7,7 @@ import {
   SHOULD_COMPONENTS_UPDATE,
   UPDATE_COMPONENT,
 } from '../../redux/types/components_types'
-import { InitialIcon, InitialText, Main } from './editor_styles'
+import { Backdrop, InitialIcon, InitialText, Main } from './editor_styles'
 import shortid from 'shortid'
 
 /**
@@ -33,11 +33,11 @@ const Editor = () => {
    * Initial component
    */
   const initialize = () => {
+    // Generate new component and related code
     const generatedComp = codeGen({
       id: shortid.generate(),
       name: 'First Component',
       type: 'div',
-      id: 'main-wrapper',
       props: [
         {
           key: 'isHome',
@@ -59,6 +59,31 @@ const Editor = () => {
       payload: generatedComp,
     })
 
+    const comp2 = codeGen({
+      id: shortid.generate(),
+      name: 'First Component',
+      type: 'div',
+      props: [
+        {
+          key: 'isHome',
+          value: 'true',
+          type: 'exp',
+        },
+        {
+          key: 'testProp',
+          value: 'test',
+          type: 'str',
+        },
+      ],
+      styles:
+        'margin: 0;\npadding: 1em;\nheight: 10em;\nborder: 1px solid #a1a1a1;',
+    })
+
+    dispatch({
+      type: ADD_COMPONENT,
+      payload: comp2,
+    })
+
     setInitialized(true)
   }
 
@@ -67,10 +92,16 @@ const Editor = () => {
    */
   useEffect(() => {
     if (ShouldCompsUpdate) {
-      const { id, name, type, props, styles } = Components[0]
+      // Find selected component in redux
+      const { id, name, type, props, styles } = Components.find(
+        ({ id }) => id == SelectedCompID
+      )
+
+      // generate a new component and related codes with selected comp data
       const updatedComp = codeGen({ id, name, type, props, styles })
 
-      dispatch({ type: UPDATE_COMPONENT, payload: updatedComp })
+      // update redux to re-render react
+      dispatch({ type: UPDATE_COMPONENT, payload: { id, updatedComp } })
       dispatch({ type: SHOULD_COMPONENTS_UPDATE, payload: false })
     }
   }, [ShouldCompsUpdate])
@@ -95,20 +126,25 @@ const Editor = () => {
   /**
    * Render
    */
-  return (
-    <>
-      <Main>
-        {Initialized ? (
-          <>
-            <RenderComponents />
-          </>
-        ) : (
-          <InitialIcon onClick={initialize}>
-            <InitialText>Click Here To Initialize The Page</InitialText>
-          </InitialIcon>
-        )}
-      </Main>
-    </>
+  return Initialized ? (
+    <Main>
+      <Backdrop
+        // Deselet all
+        onClick={() =>
+          dispatch({
+            type: SET_SELECTED_COMPONENT_ID,
+            payload: null,
+          })
+        }
+      />
+      <RenderComponents />
+    </Main>
+  ) : (
+    <Main>
+      <InitialIcon onClick={initialize}>
+        <InitialText>Click Here To Initialize The Page</InitialText>
+      </InitialIcon>
+    </Main>
   )
 }
 

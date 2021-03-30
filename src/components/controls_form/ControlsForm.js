@@ -1,20 +1,18 @@
 import { withFormik } from 'formik'
 import { Form } from 'formik'
-import { connect, useDispatch } from 'react-redux'
+import { connect } from 'react-redux'
 import {
   SHOULD_COMPONENTS_UPDATE,
-  UPDATE_COMPONENT_STYLES,
+  UPDATE_COMPONENT_DATA,
 } from '../../redux/types/components_types'
 import MyButton from '../customButtons/CustomButtons'
 import { MyInput } from '../customInputs/CustomInputs'
 import { MyTextarea } from '../customTextarea/CustomTextarea'
 
+/**
+ * Raw Form
+ */
 const FormView = ({ values, handleChange }) => {
-  /**
-   * Redux
-   */
-  const dispatch = useDispatch()
-
   /**
    * Render
    */
@@ -35,40 +33,47 @@ const FormView = ({ values, handleChange }) => {
           value={values.styles}
         />
 
-        <MyButton
-          text='Update Styles'
-          onClick={() => {
-            dispatch({ type: UPDATE_COMPONENT_STYLES, payload: values.styles })
-            dispatch({ type: SHOULD_COMPONENTS_UPDATE, payload: true })
-          }}
-        />
+        <MyButton text='Update Component' type='submit' />
       </Form>
     </>
   )
 }
 
+/**
+ * Formik Logic
+ */
 const ControlsForm = withFormik({
   enableReinitialize: true,
   mapPropsToValues: ({ selectedComp }) => {
     if (selectedComp) {
-      const { name, styles } = selectedComp
+      const { id, name, styles } = selectedComp
 
       return {
+        id,
         name,
         styles,
       }
     }
 
     return {
+      id: null,
       name: '',
       styles: '',
     }
   },
-  handleSubmit: (values, { props }) => {
+  handleSubmit: (
+    values,
+    { props: { updateComponentData, shouldComponentUpdate } }
+  ) => {
     console.log(values)
+    updateComponentData(values)
+    shouldComponentUpdate(true)
   },
 })(FormView)
 
+/**
+ * Redux
+ */
 export default connect(
   // mapStateToProps
   ({ components, selectedCompID }) => {
@@ -76,5 +81,10 @@ export default connect(
     return { selectedComp }
   },
   // mapDispatchToProps
-  {}
+  dispatch => ({
+    updateComponentData: payload =>
+      dispatch({ type: UPDATE_COMPONENT_DATA, payload }),
+    shouldComponentUpdate: payload =>
+      dispatch({ type: SHOULD_COMPONENTS_UPDATE, payload }),
+  })
 )(ControlsForm)
