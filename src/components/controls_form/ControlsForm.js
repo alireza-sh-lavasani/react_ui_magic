@@ -8,6 +8,7 @@ import {
 import MyButton from '../customButtons/CustomButtons'
 import { MyInput } from '../customInputs/CustomInputs'
 import { MyTextarea } from '../customTextarea/CustomTextarea'
+import { FieldTitle, FieldValue, Row } from './controlsForm_styles'
 
 /**
  * Raw Form
@@ -19,6 +20,11 @@ const FormView = ({ values, handleChange }) => {
   return (
     <>
       <Form autoComplete='off' style={{ width: '100%' }}>
+        <Row>
+          <FieldTitle>Component ID:</FieldTitle>
+          <FieldValue>{values.id}</FieldValue>
+        </Row>
+
         <MyInput
           onChange={handleChange}
           name='name'
