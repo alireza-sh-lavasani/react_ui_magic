@@ -1,11 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import codeGen from '../../modules/codeGen'
 import {
   ADD_COMPONENT,
   SET_SELECTED_COMPONENT_ID,
-  TRIGGER_UPDATE,
-  UPDATE_COMPONENT,
 } from '../../redux/types/components_types'
 import { Backdrop, InitialIcon, InitialText, Main } from './editor_styles'
 import shortid from 'shortid'
@@ -19,9 +17,8 @@ const Editor = () => {
    */
   const dispatch = useDispatch()
   const Components = useSelector(({ components }) => components.children)
-  const updateTrigger = useSelector(
-    ({ updateTrigger }) => updateTrigger
-  )
+  // used to re-render the component un redux update
+  const updateTrigger = useSelector(({ updateTrigger }) => updateTrigger)
   const SelectedCompID = useSelector(({ selectedCompID }) => selectedCompID)
 
   /**
@@ -87,15 +84,6 @@ const Editor = () => {
 
     setInitialized(true)
   }
-
-  // /**
-  //  * Watch for update flag from redux
-  //  */
-  // useEffect(() => {
-  //   if (ShouldCompsUpdate) {
-  //     dispatch({ type: TRIGGER_UPDATE, payload: false })
-  //   }
-  // }, [ShouldCompsUpdate])
 
   /**
    * Render Elements
