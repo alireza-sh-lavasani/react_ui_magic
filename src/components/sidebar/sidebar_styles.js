@@ -14,6 +14,7 @@ export const Main = styled.section`
   position: absolute;
   top: 0;
   ${({ direction }) => (direction === 'left' ? 'left: 0;' : 'right: 0')};
+  z-index: 1;
 `
 
 export const Laser = styled.div`

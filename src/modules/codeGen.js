@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
-const codeGen = ({ id, name, type, styles, props }) => {
+const codeGen = ({ id, name, type, styles, props, children }) => {
+  console.log({ children })
   // Generate element
   const component = styled[type]`
     ${styles}
@@ -12,28 +13,11 @@ const codeGen = ({ id, name, type, styles, props }) => {
     ${({ isSelected }) =>
       isSelected &&
       `
-    &::after {
-      content: '';
-      top: 0;
-      left: 0;
-      background-color: #d9b200;
-      height: 100%;
-      width: 100%;
-      position: absolute;
-      opacity: 0.25;
-    }`}
+      box-shadow: inset 0px 0px 300px 61px rgba(217, 177, 0, 0.3);
+      `}
 
     &:hover {
-      &::after {
-        content: '';
-        top: 0;
-        left: 0;
-        background-color: #d9b200;
-        height: 100%;
-        width: 100%;
-        position: absolute;
-        opacity: 0.25;
-      }
+      box-shadow: inset 0px 0px 300px 61px rgba(217, 177, 0, 0.3);
     }
   `
 
@@ -43,11 +27,38 @@ const codeGen = ({ id, name, type, styles, props }) => {
       `${key}=${type === 'exp' ? `{${value}}` : `[${value}]`}`
   )
 
+  // Parse children
+  const parseChildren = () => {
+    let childrenArray = []
+
+    // parse props
+    const parseProps = props => {
+      let propsArray = []
+      const propKeys = Object.keys(props)
+
+      propKeys.map(key => propsArray.push(`${key}=${props[key]}`))
+      return propsArray
+    }
+
+    // fill childrenArray
+    children.map(({ type, props }, index) => {
+      childrenArray.push(
+        `${index === 0 ? '[' : ''}<${type} ${parseProps(props)} />${
+          index === children.length - 1 ? ']' : ''
+        }`
+      )
+      return null
+    })
+
+    return childrenArray
+  }
+
   // Generate Code
   const react_code = `
     <${name}
-      ${`id='${id}'`}
+      id='${id}'
       ${parsedProps.join('\n\t\t')}
+      ${children && `children={${parseChildren()}}`}
     />
   `
 
@@ -68,6 +79,7 @@ const codeGen = ({ id, name, type, styles, props }) => {
     props,
     react_code,
     react_style,
+    children,
   }
 }
 

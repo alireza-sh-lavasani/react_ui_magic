@@ -9,6 +9,7 @@ import {
 } from '../../redux/types/components_types'
 import { Backdrop, InitialIcon, InitialText, Main } from './editor_styles'
 import shortid from 'shortid'
+import MyButton from '../customButtons/CustomButtons'
 
 /**
  * Editor component
@@ -52,6 +53,7 @@ const Editor = () => {
       ],
       styles:
         'margin: 0;\npadding: 1em;\nheight: 10em;\nborder: 1px solid #a1a1a1;',
+      children: [<p children='some text' />, <button children='test' />],
     })
 
     dispatch({
@@ -110,10 +112,11 @@ const Editor = () => {
    * Render Elements
    */
   const RenderComponents = () =>
-    Components.map(({ id, component: CustomComp }) => (
+    Components.map(({ id, children, component: CustomComp }) => (
       <CustomComp
         key={id}
         isSelected={id == SelectedCompID}
+        children={children}
         onClick={() => {
           dispatch({
             type: SET_SELECTED_COMPONENT_ID,

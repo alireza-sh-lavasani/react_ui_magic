@@ -13,7 +13,7 @@ const Home = () => {
 
       <MainRow>
         <Sidebar title='Tools' direction='left'>
-          <button>Do something</button>
+          <button onClick={() => {}}>Add a button</button>
         </Sidebar>
 
         <Editor />

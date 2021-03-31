@@ -13,7 +13,7 @@ const components = (state = [], { type, payload }) => {
       return [...state, payload]
 
     /*****************************************************
-     * Update selected component ro re-render react
+     * Update selected component to re-render react
      *****************************************************/
     case UPDATE_COMPONENT:
       return updateComponent(state, payload)
@@ -31,9 +31,9 @@ const components = (state = [], { type, payload }) => {
 
 export default components
 
-/**
+/***********************
  * Update Component
- */
+ ***********************/
 const updateComponent = (state, payload) => {
   const { id: selectedCompID, updatedComp } = payload
 
@@ -53,9 +53,9 @@ const updateComponent = (state, payload) => {
   return components
 }
 
-/**
+/******************************
  * Update component Data
- */
+ ******************************/
 const updateComponentData = (state, payload) => {
   const { id: selectedCompID, name, styles } = payload
 
