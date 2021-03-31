@@ -58,7 +58,7 @@ const Editor = () => {
 
     dispatch({
       type: ADD_COMPONENT,
-      payload: generatedComp,
+      payload: { newComp: generatedComp },
     })
 
     const comp2 = codeGen({
@@ -83,7 +83,7 @@ const Editor = () => {
 
     dispatch({
       type: ADD_COMPONENT,
-      payload: comp2,
+      payload: { newComp: comp2 },
     })
 
     setInitialized(true)
