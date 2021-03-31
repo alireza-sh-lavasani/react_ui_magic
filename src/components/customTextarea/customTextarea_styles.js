@@ -30,7 +30,7 @@ export const Textarea = styled.textarea`
 export const Label = styled.label`
   color: ${({ color }) => color || '#a1a1a1'};
   position: absolute;
-  left: 0.1em;
+  left: 0.5em;
   top: 0.5em;
   font-size: ${({ fontSize }) => fontSize || '1em'};
   transition: all ease-in 0.15s;

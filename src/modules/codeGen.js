@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 const codeGen = ({ id, name, type, styles, props, children }) => {
-  console.log({ children })
   // Generate element
   const component = styled[type]`
     ${styles}

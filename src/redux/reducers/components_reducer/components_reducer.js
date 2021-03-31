@@ -1,16 +1,17 @@
 import {
   ADD_COMPONENT,
   UPDATE_COMPONENT,
-  UPDATE_COMPONENT_DATA,
 } from '../../types/components_types'
 import { addComponent } from './addComponent'
 import { updateComponent } from './updateComponent'
-import { updateComponentData } from './updateComponentData'
+import Tree from 'arboreal'
+
+const compsTree = new Tree()
 
 /**
  * Components reducer
  */
-const components = (state = [], { type, payload }) => {
+const components = (state = compsTree, { type, payload }) => {
   switch (type) {
     /*****************************************************
      * Add new component
@@ -19,16 +20,10 @@ const components = (state = [], { type, payload }) => {
       return addComponent(state, payload)
 
     /*****************************************************
-     * Update selected component to re-render react
+     * Update selected component data with user input
      *****************************************************/
     case UPDATE_COMPONENT:
       return updateComponent(state, payload)
-
-    /*****************************************************
-     * Update selected component data with user input
-     *****************************************************/
-    case UPDATE_COMPONENT_DATA:
-      return updateComponentData(state, payload)
 
     default:
       return state

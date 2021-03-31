@@ -4,12 +4,11 @@ import codeGen from '../../modules/codeGen'
 import {
   ADD_COMPONENT,
   SET_SELECTED_COMPONENT_ID,
-  SHOULD_COMPONENTS_UPDATE,
+  TRIGGER_UPDATE,
   UPDATE_COMPONENT,
 } from '../../redux/types/components_types'
 import { Backdrop, InitialIcon, InitialText, Main } from './editor_styles'
 import shortid from 'shortid'
-import MyButton from '../customButtons/CustomButtons'
 
 /**
  * Editor component
@@ -19,9 +18,9 @@ const Editor = () => {
    * Redux
    */
   const dispatch = useDispatch()
-  const Components = useSelector(({ components }) => components)
-  const ShouldCompsUpdate = useSelector(
-    ({ shouldComponentsUpdate }) => shouldComponentsUpdate
+  const Components = useSelector(({ components }) => components.children)
+  const updateTrigger = useSelector(
+    ({ updateTrigger }) => updateTrigger
   )
   const SelectedCompID = useSelector(({ selectedCompID }) => selectedCompID)
 
@@ -89,30 +88,20 @@ const Editor = () => {
     setInitialized(true)
   }
 
-  /**
-   * Watch for update flag from redux
-   */
-  useEffect(() => {
-    if (ShouldCompsUpdate) {
-      // Find selected component in redux
-      const { id, name, type, props, styles } = Components.find(
-        ({ id }) => id == SelectedCompID
-      )
-
-      // generate a new component and related codes with selected comp data
-      const updatedComp = codeGen({ id, name, type, props, styles })
-
-      // update redux to re-render react
-      dispatch({ type: UPDATE_COMPONENT, payload: { id, updatedComp } })
-      dispatch({ type: SHOULD_COMPONENTS_UPDATE, payload: false })
-    }
-  }, [ShouldCompsUpdate])
+  // /**
+  //  * Watch for update flag from redux
+  //  */
+  // useEffect(() => {
+  //   if (ShouldCompsUpdate) {
+  //     dispatch({ type: TRIGGER_UPDATE, payload: false })
+  //   }
+  // }, [ShouldCompsUpdate])
 
   /**
    * Render Elements
    */
   const RenderComponents = () =>
-    Components.map(({ id, children, component: CustomComp }) => (
+    Components.map(({ data: { id, children, component: CustomComp } }) => (
       <CustomComp
         key={id}
         isSelected={id == SelectedCompID}

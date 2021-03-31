@@ -1,9 +1,10 @@
 import { withFormik } from 'formik'
 import { Form } from 'formik'
 import { connect } from 'react-redux'
+import shortid from 'shortid'
 import {
-  SHOULD_COMPONENTS_UPDATE,
-  UPDATE_COMPONENT_DATA,
+  TRIGGER_UPDATE,
+  UPDATE_COMPONENT,
 } from '../../redux/types/components_types'
 import MyButton from '../customButtons/CustomButtons'
 import { MyInput } from '../customInputs/CustomInputs'
@@ -51,7 +52,8 @@ const FormView = ({ values, handleChange }) => {
 const ControlsForm = withFormik({
   enableReinitialize: true,
   mapPropsToValues: ({ selectedComp }) => {
-    if (selectedComp) {
+    // on component selection
+    if (Object.keys(selectedComp).length > 0) {
       const { id, name, styles } = selectedComp
 
       return {
@@ -61,6 +63,7 @@ const ControlsForm = withFormik({
       }
     }
 
+    // default
     return {
       id: null,
       name: '',
@@ -71,9 +74,8 @@ const ControlsForm = withFormik({
     values,
     { props: { updateComponentData, shouldComponentUpdate } }
   ) => {
-    console.log(values)
     updateComponentData(values)
-    shouldComponentUpdate(true)
+    shouldComponentUpdate(shortid.generate())
   },
 })(FormView)
 
@@ -83,14 +85,18 @@ const ControlsForm = withFormik({
 export default connect(
   // mapStateToProps
   ({ components, selectedCompID }) => {
-    const selectedComp = components.find(({ id }) => id == selectedCompID)
-    return { selectedComp }
+    // components is an instance of arboreal tree which has its own find method. don't mix it up with ES6 array.find
+    const selectedComp = components.find(
+      ({ data: { id } }) => id == selectedCompID
+    )
+
+    return { selectedComp: selectedComp.data }
   },
   // mapDispatchToProps
   dispatch => ({
     updateComponentData: payload =>
-      dispatch({ type: UPDATE_COMPONENT_DATA, payload }),
+      dispatch({ type: UPDATE_COMPONENT, payload }),
     shouldComponentUpdate: payload =>
-      dispatch({ type: SHOULD_COMPONENTS_UPDATE, payload }),
+      dispatch({ type: TRIGGER_UPDATE, payload }),
   })
 )(ControlsForm)

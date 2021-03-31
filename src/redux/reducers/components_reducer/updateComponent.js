@@ -1,21 +1,21 @@
+import codeGen from '../../../modules/codeGen'
+
 /**************************************
- ******** Update Component
+ ******** Update component Data
+ * state is an instance of arboreal tree
+ *  which has its own methods
  *************************************/
- export const updateComponent = (state, payload) => {
-  const { id: selectedCompID, updatedComp } = payload
+export const updateComponent = (state, payload) => {
+  const { id: selectedCompID, name, styles } = payload
 
-  let compIndex
+  const selectedComp = state.find(({ data: { id } }) => id == selectedCompID)
 
-  // find selected component and its index
-  state.map(({ id }, index) => {
-    if (id == selectedCompID) {
-      compIndex = index
-      return null
-    }
+  const newComp = codeGen({
+    ...selectedComp.data,
+    name,
+    styles,
   })
 
-  // update redux with selected component data
-  let components = [...state]
-  components[compIndex] = updatedComp
-  return components
+  selectedComp.data = newComp
+  return state
 }
