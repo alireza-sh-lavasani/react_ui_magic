@@ -21,10 +21,13 @@ const codeGen = ({ id, name, type, styles, props, children }) => {
   `
 
   // Parse props
-  const parsedProps = props.map(
-    ({ key, value, type }) =>
-      `${key}=${type === 'exp' ? `{${value}}` : `[${value}]`}`
-  )
+  const parseProps = () => {
+    const parsed = props.map(
+      ({ key, value, type }) =>
+        `${key}=${type === 'exp' ? `{${value}}` : `[${value}]`}`
+    )
+    return parsed.join('\n\t\t')
+  }
 
   // Parse children
   const parseChildren = () => {
@@ -56,7 +59,7 @@ const codeGen = ({ id, name, type, styles, props, children }) => {
   const react_code = `
     <${name}
       id='${id}'
-      ${parsedProps.join('\n\t\t')}
+      ${props && parseProps()}
       ${children && `children={${parseChildren()}}`}
     />
   `
