@@ -4,29 +4,8 @@ import codeGen from '../../modules/codeGen'
 import {
   ADD_COMPONENT,
   SET_SELECTED_COMPONENT_ID,
-  TRIGGER_UPDATE,
 } from '../../redux/types/components_types'
 import { Backdrop, InitialIcon, InitialText, Main } from './editor_styles'
-import shortid from 'shortid'
-import MyButton from '../customButtons/CustomButtons'
-
-const P = codeGen({
-  id: shortid.generate(),
-  name: 'First Paragraph',
-  type: 'p',
-  styles: 'color: #a1a1a1;',
-  children: [<span children='some paragraph' />],
-})
-
-const comp2_id = shortid.generate()
-
-const comp2 = codeGen({
-  id: comp2_id,
-  name: 'Second Component',
-  type: 'div',
-  styles:
-    'margin: 0;\npadding: 1em;\nheight: 10em;\nborder: 1px solid #a1a1a1;',
-})
 
 /**
  * Editor component
@@ -52,7 +31,6 @@ const Editor = () => {
   const initialize = () => {
     // Generate new component and related code
     const generatedComp = codeGen({
-      id: shortid.generate(),
       name: 'First Component',
       type: 'div',
       props: [
@@ -77,6 +55,13 @@ const Editor = () => {
       payload: { newComp: generatedComp },
     })
 
+    const comp2 = codeGen({
+      name: 'Second Component',
+      type: 'div',
+      styles:
+        'margin: 0;\npadding: 1em;\nheight: 10em;\nborder: 1px solid #a1a1a1;',
+    })
+
     dispatch({
       type: ADD_COMPONENT,
       payload: { newComp: comp2 },
@@ -91,7 +76,7 @@ const Editor = () => {
   const RenderComponents = () =>
     Components.map(
       ({
-        data: { id, children: inlineChildren, component: Component },
+        data: { id, children: inlineChildren, component: Component, render },
         children,
       }) => {
         const treeChildren = children.map(
@@ -100,19 +85,10 @@ const Editor = () => {
           )
         )
 
-        return (
-          <Component
-            key={id}
-            isSelected={id == SelectedCompID}
-            children={inlineChildren || treeChildren}
-            onClick={() => {
-              dispatch({
-                type: SET_SELECTED_COMPONENT_ID,
-                payload: id,
-              })
-            }}
-          />
-        )
+        return render({
+          children: inlineChildren || treeChildren,
+          isSelected: id == SelectedCompID,
+        })
       }
     )
 
@@ -122,7 +98,7 @@ const Editor = () => {
   return Initialized ? (
     <Main>
       <Backdrop
-        // Deselet all
+        // Deselect all
         onClick={() =>
           dispatch({
             type: SET_SELECTED_COMPONENT_ID,
@@ -131,20 +107,6 @@ const Editor = () => {
         }
       />
       <RenderComponents />
-
-      <MyButton
-        style={{ margin: '2em auto' }}
-        onClick={() => {
-          dispatch({
-            type: ADD_COMPONENT,
-            payload: { newComp: P, selectedCompID: comp2_id },
-          })
-
-          dispatch({ type: TRIGGER_UPDATE, payload: shortid.generate() })
-        }}
-      >
-        Add paragraph to selected element
-      </MyButton>
     </Main>
   ) : (
     <Main>

@@ -8,6 +8,7 @@ export const addComponent = (state, payload) => {
 
   // In case of a sub component adding to an existing one
   if (selectedCompID) {
+    console.log({ selectedCompID })
     const selectedComp = state.find(({ data: { id } }) => id == selectedCompID)
 
     selectedComp.appendChild(newComp)
