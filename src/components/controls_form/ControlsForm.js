@@ -10,6 +10,7 @@ import MyButton from '../customButtons/CustomButtons'
 import { MyInput } from '../customInputs/CustomInputs'
 import { MyTextarea } from '../customTextarea/CustomTextarea'
 import { FieldTitle, FieldValue, Row } from './controlsForm_styles'
+import { UnControlled as CodeMirror } from 'react-codemirror2'
 
 /**
  * Raw Form
@@ -38,6 +39,21 @@ const FormView = ({ values, handleChange }) => {
           name='styles'
           label='Styles'
           value={values.styles}
+        />
+
+        <CodeMirror
+          value={values.styles}
+          options={{
+            mode: 'css',
+            theme: 'material',
+            lineNumbers: true,
+          }}
+          // onBeforeChange={(editor, data, value) => {
+          //   console.log(value)
+          // }}
+          onChange={(editor, data, value) => {
+            console.log(value)
+          }}
         />
 
         <MyButton text='Update Component' type='submit' />

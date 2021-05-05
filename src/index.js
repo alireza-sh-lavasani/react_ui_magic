@@ -5,11 +5,22 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { Provider } from 'react-redux'
 import store from './redux/store'
+import Sandbox from './Sandbox'
+import CodeMirror from 'codemirror'
+import 'codemirror/lib/codemirror.css'
+import 'codemirror/theme/material.css'
+import 'codemirror/theme/midnight.css'
+import 'codemirror/mode/xml/xml'
+import 'codemirror/mode/javascript/javascript'
+import 'codemirror/mode/css/css'
+
+console.log(CodeMirror.modes)
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <App />
+      {/* <Sandbox /> */}
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
