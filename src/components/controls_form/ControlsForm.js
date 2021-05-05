@@ -72,10 +72,10 @@ const ControlsForm = withFormik({
   },
   handleSubmit: (
     values,
-    { props: { updateComponentData, shouldComponentUpdate } }
+    { props: { updateComponentData, triggerUpdate } }
   ) => {
     updateComponentData(values)
-    shouldComponentUpdate(shortid.generate())
+    // triggerUpdate(shortid.generate())
   },
 })(FormView)
 
@@ -90,13 +90,16 @@ export default connect(
       ({ data: { id } }) => id == selectedCompID
     )
 
+    console.log({ selectedCompID })
+    console.log({ selectedComp })
+
     return { selectedComp: selectedComp.data }
   },
   // mapDispatchToProps
   dispatch => ({
     updateComponentData: payload =>
       dispatch({ type: UPDATE_COMPONENT, payload }),
-    shouldComponentUpdate: payload =>
+    triggerUpdate: payload =>
       dispatch({ type: TRIGGER_UPDATE, payload }),
   })
 )(ControlsForm)

@@ -1,8 +1,9 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import root_reducer from './reducers/root_reducer'
+import thunk from 'redux-thunk'
 
-const middlewares = []
+const middlewares = [thunk]
 let allStoreEnhancers
 
 if (process.env.NODE_ENV === 'development') {

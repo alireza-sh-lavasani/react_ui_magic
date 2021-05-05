@@ -1,8 +1,16 @@
+import { useDispatch } from 'react-redux'
+import shortid from 'shortid'
 import styled from 'styled-components'
+import { SET_SELECTED_COMPONENT_ID } from '../redux/types/components_types'
 
-const codeGen = ({ id, name, type, styles, props, children }) => {
+/**
+ * Component code generator
+ */
+const codeGen = ({ name, type, styles, props, children }) => {
+  const id = shortid.generate()
+
   // Generate element
-  const component = styled[type]`
+  const Component = styled[type]`
     ${styles}
 
     transition: all ease-in 0.1s;
@@ -71,12 +79,34 @@ const codeGen = ({ id, name, type, styles, props, children }) => {
     ${'`'}
   `
 
+  /**
+   * Render Component
+   */
+  const RenderComponent = ({ isSelected, children }) => {
+    const dispatch = useDispatch()
+
+    return (
+      <Component
+        key={id}
+        isSelected={isSelected}
+        children={children}
+        onClick={() =>
+          dispatch({
+            type: SET_SELECTED_COMPONENT_ID,
+            payload: id,
+          })
+        }
+      />
+    )
+  }
+
   // Return component data
   return {
     id,
     name,
     type,
-    component,
+    component: Component,
+    render: RenderComponent,
     styles,
     props,
     react_code,
